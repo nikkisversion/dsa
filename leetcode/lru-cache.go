@@ -77,12 +77,16 @@ func main() {
 	fmt.Println(lru.Get(2))
 }
 
-// Problem Link: https://leetcode.com/problems/lru-cache?envType=problem-list-v2&envId=ssd-ssd1-cache-system-design
 /* Notes:
+
+Problem Link: https://leetcode.com/problems/lru-cache?envType=problem-list-v2&envId=ssd-ssd1-cache-system-design
+
+Comments:
 Notice how while adding a new element to the queue,
 the field Value of the conatiner/list.Element struct
 is used as the key of the pair. This comes in useful
 when we have to remove the last element of the queue.
 Because then we get the last item of the list, get
 the key from that item, and use that key to delete
-the item from the map as well. */
+the item from the map as well.
+*/
