@@ -89,4 +89,8 @@ when we have to remove the last element of the queue.
 Because then we get the last item of the list, get
 the key from that item, and use that key to delete
 the item from the map as well.
+
+--- Useful Links:
+	https://medium.com/@dinesht.bits/implementing-lru-cache-using-golang-7dcea5c3f054
+
 */
