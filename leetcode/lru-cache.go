@@ -79,9 +79,9 @@ func main() {
 
 /* Notes:
 
-Problem Link: https://leetcode.com/problems/lru-cache?envType=problem-list-v2&envId=ssd-ssd1-cache-system-design
+-- Problem Link: https://leetcode.com/problems/lru-cache?envType=problem-list-v2&envId=ssd-ssd1-cache-system-design
 
-Comments:
+-- Comments:
 Notice how while adding a new element to the queue,
 the field Value of the conatiner/list.Element struct
 is used as the key of the pair. This comes in useful
