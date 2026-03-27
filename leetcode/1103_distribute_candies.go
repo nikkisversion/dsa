@@ -1,8 +1,8 @@
-package main
+package leetcode
 
 import "fmt"
 
-func main() {
+func init() {
 	result := distributeCandies(10, 7)
 	fmt.Println(result)
 }
