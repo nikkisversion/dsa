@@ -1,4 +1,4 @@
-package leetcode
+package lfu
 
 import "container/list"
 

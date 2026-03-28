@@ -1,4 +1,4 @@
-package leetcode
+package lru
 
 import (
 	"container/list"
@@ -16,7 +16,7 @@ type LRUCache struct {
 	Items    map[int]*Node
 }
 
-func ConstructorLRU(capacity int) LRUCache {
+func Constructor(capacity int) LRUCache {
 	queue := list.New()
 	items := make(map[int]*Node)
 
@@ -66,7 +66,7 @@ func (this *LRUCache) Put(key int, value int) {
 
 func main() {
 
-	lru := ConstructorLRU(3)
+	lru := Constructor(3)
 
 	lru.Put(1, 1)
 	lru.Put(2, 2)
