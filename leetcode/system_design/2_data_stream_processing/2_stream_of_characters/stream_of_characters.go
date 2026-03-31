@@ -1,7 +1,6 @@
 package streamofcharacters
 
 import (
-	"slices"
 	"strings"
 )
 
@@ -42,16 +41,6 @@ func (this *Trie) Insert(newString string) {
 		}
 		currentNode = nextNode
 	}
-	// for _, e := range str {
-	// 	strE := string(e)
-	// 	nextNode, ok := currentNode.Children[strE]
-	// 	if !ok {
-	// 		currentNode.Children[strE] = NewNode(strE)
-	// 		currentNode = currentNode.Children[strE]
-	// 		continue
-	// 	}
-	// 	currentNode = nextNode
-	// }
 	currentNode.isLastLetterOfWord = true
 }
 
@@ -86,114 +75,52 @@ type StreamChecker struct {
 
 func Constructor(words []string) StreamChecker {
 
+	ml := 0
 	newTrie := NewTrie()
-	//reveresedWordsArray := []string{}
+
 	for _, word := range words {
-		//reverseStr := reverseString(word)
-		//reveresedWordsArray = append(reveresedWordsArray, word)
+		if len(word) > ml {
+			ml = len(word)
+		}
 		newTrie.Insert(word)
 	}
+
 	return StreamChecker{
 		Words:            words,
 		Storage:          newTrie,
 		PossibleSuffixes: "",
+		MaxLen:           ml,
 	}
 
-}
-
-func reverseString(str string) string {
-	runes := []rune(str)
-	slices.Reverse(runes)
-	return string(runes)
 }
 
 func (this *StreamChecker) Query(letter byte) bool {
 
 	this.PossibleSuffixes = string(letter) + this.PossibleSuffixes
+	if len(this.PossibleSuffixes) > this.MaxLen {
+		this.PossibleSuffixes = this.PossibleSuffixes[:this.MaxLen]
+	}
 
 	if len(this.Storage.RootNode.Children) == 0 {
 		return false
 	}
 
-	return this.query(0, this.Storage.RootNode)
-
-}
-
-func (this *StreamChecker) query(index int, currentNode *Node) bool {
-
-	if index >= len(this.PossibleSuffixes) {
-		return false
-	}
-
-	firstLetter := this.PossibleSuffixes[index]
-
-	val, ok := currentNode.Children[string(firstLetter)]
-	if ok {
-		if val.isLastLetterOfWord {
-			return true
-		}
-		return this.query(index+1, val)
-	}
-
-	return false
-
-}
-
-func (this *StreamChecker) Query1(letter byte) bool {
-	this.PossibleSuffixes = string(letter) + this.PossibleSuffixes
-
-	strToCheck := ""
+	currentNode := this.Storage.RootNode
 	for i := 0; i < len(this.PossibleSuffixes); i++ {
-		strToCheck = strToCheck + string(this.PossibleSuffixes[i])
 
-		isExists := this.Storage.Search(strToCheck)
-		if isExists {
-			return true
-		}
+		ch := this.PossibleSuffixes[i]
 
-	}
-	return false
-}
-
-func (this *StreamChecker) Query2(letter byte) bool {
-
-	this.PossibleSuffixes = string(letter) + this.PossibleSuffixes
-
-	// firstLetter := string(letter)
-
-	// exists := this.Storage.Search(firstLetter)
-	// if !exists {
-	// 	return false
-	// }
-
-	// return true
-
-	if !this.Storage.Search(string(this.PossibleSuffixes[0])) {
-		return false
-	}
-
-	firstLetter := string(this.PossibleSuffixes[0])
-	currentNode := this.Storage.RootNode.Children[firstLetter]
-
-	for i := 1; i < len(this.PossibleSuffixes); i++ {
-
-		letter := string(this.PossibleSuffixes[i])
-
-		if len(currentNode.Children) == 0 {
-			return true
-		}
-
-		val, ok := currentNode.Children[letter]
+		val, ok := currentNode.Children[string(ch)]
 		if !ok {
 			return false
 		}
 
+		if val.isLastLetterOfWord {
+			return true
+		}
+
 		currentNode = val
 
-	}
-
-	if len(currentNode.Children) == 0 {
-		return true
 	}
 
 	return false
