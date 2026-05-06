@@ -13,7 +13,6 @@ func gcdOfStrings(str1 string, str2 string) string {
 }
 
 func gcd(a, b int) int {
-
 	smaller := min(a, b)
 	bigger := max(a, b)
 
