@@ -54,4 +54,13 @@ decrementing this as we move throught the ransom
 string. O(m x n) again, but takes lesser time
 in leetcode.
 
+
+3. Note how we are calculating the index of the
+rune in the string, by subtracting 'a' from it.
+This gives us a numerical value starting from
+0 for 'a'.
+
+4. We can also use strings.Count() library
+function.
+
 */
