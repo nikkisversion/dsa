@@ -74,4 +74,9 @@ Comments:
 
 2. We are setting queue[0] = nil to free up memory to be collected by the GC later.
 
+3. In the loop with iterator as i, we need to calculate the length of the queue
+beforehand and use that as the limit for the iterator. This is because when later
+we append to the queue, its length will keep increasing and this loop will keep
+going on.
+
 */
