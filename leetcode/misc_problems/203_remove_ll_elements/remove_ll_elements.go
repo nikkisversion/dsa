@@ -7,6 +7,22 @@ type ListNode struct {
 
 func removeElements(head *ListNode, val int) *ListNode {
 
+	dummyNode := &ListNode{Next: head}
+	current := dummyNode
+
+	for current.Next != nil {
+		if current.Next.Val == val {
+			current.Next = current.Next.Next
+		} else {
+			current = current.Next
+		}
+	}
+
+	return dummyNode.Next
+}
+
+func removeElementsOld(head *ListNode, val int) *ListNode {
+
 	if head == nil || (head.Val == val && head.Next == nil) {
 		return nil
 	}
@@ -38,7 +54,20 @@ Notes:
 
 Problem Link: https://leetcode.com/problems/remove-linked-list-elements
 
-Comments:
+Comments [NEW]:
+
+1. Used a dummy note to account for the head being a node that needs
+to be removed.
+
+2. No need to store nextVal etc
+
+3. Loop is till current.Next != nil
+
+4. The dummy node will alwyas hold the head of the list in its next ptr,
+even if the head needs to be changed.
+
+
+Comments [OLD]:
 
 1. Used a dummy note to account for the head being a node that needs
 to be removed.
